@@ -1,0 +1,12 @@
+
+# server: "https://127.0.0.1:6443"
+cluster-init: true
+# cluster-cidr: 192.168.56.0/24
+# advertise-address: 192.168.56.110
+node-ip: 192.168.56.110
+debug: true
+log: "/tmp/k3s.log"
+flannel-backend: "vxlan"
+write-kubeconfig-mode: "0644"
+token: "42@ilove"
+agent-token: "42@ilove"
