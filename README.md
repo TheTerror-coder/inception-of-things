@@ -1,5 +1,7 @@
 # Inception of Things (IoT)
 
+![Work in Progress](https://img.shields.io/badge/Work%20In%20Progress-orange) ⚠️ ***This repository is being edited and so is not finished yet.*** ⚠️
+
 Description :
 Développement d’un environnement Kubernetes minimaliste en utilisant K3s et K3d, avec une gestion simplifiée des clusters via Vagrant et une intégration du déploiement CI/CD via Argo CD. Ce projet inclut la gestion d’applications déployées sur Kubernetes et l'automatisation des processus à travers GitHub et Argo CD.
 
