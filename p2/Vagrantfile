@@ -1,0 +1,48 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+SERVER_NODENAME 			= "jfayeS"
+SERVER_ETH1_IP				= "192.168.56.110"
+RAM							= 1024
+CPUs						= 2
+K3S_PORT					= "6443"
+K3S_TOKEN					= "42@ilove"
+K3S_AGENT_TOKEN				= "42@ilove"
+K3S_URL						= "https://" + SERVER_ETH1_IP + ":" + K3S_PORT
+SERVER_NODE_HOME			= "/home/vagrant"
+
+SERVER_NODE_ENV_VARIABLES	= {
+	"SERVER_NODE_HOME" => SERVER_NODE_HOME,
+	"SERVER_ETH1_IP" => SERVER_ETH1_IP,
+	"K3S_TOKEN" => K3S_TOKEN,
+	"K3S_AGENT_TOKEN" => K3S_AGENT_TOKEN,
+}
+
+Vagrant.configure("2") do |config|
+
+	config.vm.define SERVER_NODENAME do |server|
+
+		server.vm.hostname = SERVER_NODENAME
+
+		server.vm.box = "debian/bookworm64"
+
+		server.vm.network "private_network", ip: SERVER_ETH1_IP
+		server.vm.network "forwarded_port", guest: K3S_PORT, host: K3S_PORT
+
+		server.vm.synced_folder ".", "/vagrant", disabled: true
+
+		server.vm.provider "virtualbox" do |vb|
+			vb.name = SERVER_NODENAME
+			vb.memory = RAM
+			vb.cpus = CPUs
+		end
+
+		server.vm.provision "file", source: "./tools/pod-config.yaml", destination: "/home/vagrant/pod-config.yaml"
+		server.vm.provision "file", source: "./tools/iot-service.yaml", destination: "/home/vagrant/iot-service.yaml"
+		server.vm.provision "file", source: "./tools/iot-ingress.yaml", destination: "/home/vagrant/iot-ingress.yaml"
+		server.vm.provision "file", source: "./tools/server-node-script.sh", destination: "/home/vagrant/server-node-script.sh"
+		server.vm.provision "shell", env: SERVER_NODE_ENV_VARIABLES, path: "./tools/server-node-script.sh"
+
+	end
+
+end
