@@ -6,8 +6,8 @@ metadata:
     app.kubernetes.io/name: iot-testing
 spec:
   containers:
-  - name: nginx-c
-    image: nginx:alpine3.20
+  - name: iot-app-1
+    image: theterror/iot-app-1:simple-webpage
     ports:
       - containerPort: 80
         name: iot-http-port
