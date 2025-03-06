@@ -1,41 +1,24 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  name: iot-ingress
+  name: iot-ingress-route
 spec:
-  defaultBackend:
-    service:
+  routes:
+  - kind: Rule
+    match: Host(`app1.com`) && PathPrefix(`/`)
+    services:
+    - kind: Service
+      name: app-one
+      port: iot-svc-port
+  - kind: Rule
+    match: Host(`app2.com`)  && PathPrefix(`/`)
+    services:
+    - kind: Service
+      name: app-two
+      port: iot-svc-port
+  - kind: Rule
+    match:  PathPrefix(`/`)
+    services:
+    - kind: Service
       name: app-three
-      port:
-        name: iot-svc-port
-  rules:
-  - host: app1.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: app-one
-            port:
-              name: iot-svc-port
-  - host: app2.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: app-two
-            port:
-              name: iot-svc-port
-  - host: app3.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: app-three
-            port:
-              name: iot-svc-port
+      port: iot-svc-port

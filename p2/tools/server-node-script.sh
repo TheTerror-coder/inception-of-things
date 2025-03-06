@@ -16,4 +16,4 @@ kubectl apply -f $SERVER_NODE_HOME/iot-deployment-app-three.yaml && \
 kubectl apply -f $SERVER_NODE_HOME/iot-service-app-one.yaml && \
 kubectl apply -f $SERVER_NODE_HOME/iot-service-app-two.yaml && \
 kubectl apply -f $SERVER_NODE_HOME/iot-service-app-three.yaml && \
-kubectl apply -f $SERVER_NODE_HOME/iot-ingress.yaml
+echo xxx # kubectl apply -f $SERVER_NODE_HOME/iot-ingress.yaml
