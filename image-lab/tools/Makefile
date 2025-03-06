@@ -1,8 +1,8 @@
 
 PORTS = -p 1880:80
 
-IMAGE = theterror/iot-app-1
-CONTAINER = iot-app-1-c
+IMAGE = theterror/iot-app-three:latest
+CONTAINER = iot-app-c
 
 all : build run
 

@@ -31,7 +31,7 @@ find ${FRONTEND_LOGS_ROOT} -mindepth 1 -type d -exec chmod 750 \{\} \;
 find ${FRONTEND_LOGS_ROOT} -mindepth 1 -type d -exec chown ${FRONTEND_UID}:${FRONTEND_GID} \{\} \;
 EOF
 
-COPY --chown=${FRONTEND_UID}:${FRONTEND_GID}  ./web/index.html ${FRONTEND_HOME}/html/
+COPY --chown=${FRONTEND_UID}:${FRONTEND_GID}  ./web/app3.html ${FRONTEND_HOME}/html/index.html
 COPY --chown=${FRONTEND_UID}:${FRONTEND_GID}  ./web/images/ ${FRONTEND_HOME}/volumes/www/static/images/
 COPY --chown=${FRONTEND_UID}:${FRONTEND_GID}  ./web/assets/ ${FRONTEND_HOME}/volumes/www/static/assets/
 COPY --chown=${FRONTEND_UID}:${FRONTEND_GID} --chmod=600 ./conf/nginx.conf /etc/nginx/nginx.conf
