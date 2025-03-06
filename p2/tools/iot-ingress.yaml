@@ -3,13 +3,39 @@ kind: Ingress
 metadata:
   name: iot-ingress
 spec:
+  defaultBackend:
+    service:
+      name: app-three
+      port:
+        name: iot-svc-port
   rules:
-  - http:
+  - host: app1.com
+    http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: iot-service
+            name: app-one
+            port:
+              name: iot-svc-port
+  - host: app2.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-two
+            port:
+              name: iot-svc-port
+  - host: app3.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-three
             port:
               name: iot-svc-port

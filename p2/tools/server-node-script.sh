@@ -11,5 +11,9 @@ curl -sfL https://get.k3s.io | sh -
 until kubectl version 2> /dev/null | grep --no-messages 'Server Version: v'; do sleep 1; done
 until kubectl get serviceaccount default -n default 2> /dev/null | grep --quiet 'default' && echo 'serviceaccount "default" is found'; do sleep 1; done
 kubectl apply -f $SERVER_NODE_HOME/iot-deployment-app-one.yaml && \
-kubectl apply -f $SERVER_NODE_HOME/iot-service.yaml && \
+kubectl apply -f $SERVER_NODE_HOME/iot-deployment-app-two.yaml && \
+kubectl apply -f $SERVER_NODE_HOME/iot-deployment-app-three.yaml && \
+kubectl apply -f $SERVER_NODE_HOME/iot-service-app-one.yaml && \
+kubectl apply -f $SERVER_NODE_HOME/iot-service-app-two.yaml && \
+kubectl apply -f $SERVER_NODE_HOME/iot-service-app-three.yaml && \
 kubectl apply -f $SERVER_NODE_HOME/iot-ingress.yaml

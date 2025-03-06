@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: iot-service
+  name: app-three
 spec:
   selector:
-    app.iot.io/name: iot-app-one
+    app.iot.deployment/name: app-three
   ports:
     - protocol: TCP
       port: 1880
       name: iot-svc-port
-      targetPort: iot-http-port
+      targetPort: http-port

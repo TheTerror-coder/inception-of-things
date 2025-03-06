@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-one
+  name: app-two
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app.iot.deployment/name: app-one
+      app.iot.deployment/name: app-two
   template:
     metadata:
       labels:
-        app.iot.deployment/name: app-one
+        app.iot.deployment/name: app-two
     spec:
       containers:
-      - name: iot-app-one-c
-        image: theterror/iot-app-one
+      - name: iot-app-two-c
+        image: theterror/iot-app-two
         ports:
           - containerPort: 80
             name: http-port
