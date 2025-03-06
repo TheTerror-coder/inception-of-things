@@ -4,7 +4,7 @@ metadata:
   name: iot-service
 spec:
   selector:
-    app.kubernetes.io/name: iot-testing
+    app.iot.io/name: iot-app-one
   ports:
     - protocol: TCP
       port: 1880
