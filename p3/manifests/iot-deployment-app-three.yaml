@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-three
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.iot.deployment/name: app-three
+  template:
+    metadata:
+      labels:
+        app.iot.deployment/name: app-three
+    spec:
+      containers:
+      - name: iot-app-three-c
+        image: theterror/iot-app-three
+        ports:
+          - containerPort: 80
+            name: http-port
