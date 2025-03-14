@@ -2,6 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: iot-ingress
+  namespace: dev
 spec:
   ingressClassName: nginx
   rules:
@@ -41,6 +42,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: app-three
+            name: iot-app
             port:
               name: iot-svc-port

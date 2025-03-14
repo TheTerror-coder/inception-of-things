@@ -1,7 +1,7 @@
 
 PORTS = -p 1880:80
 
-IMAGE = theterror/iot-app-three:latest
+IMAGE = theterror/iot-app:v2
 CONTAINER = iot-app-c
 
 all : build run
@@ -12,10 +12,10 @@ run :
 	-docker run -d --rm --name $(CONTAINER) $(PORTS) $(IMAGE)
 exec :
 	-docker exec -it  $(CONTAINER) sh
-clean :
+clean : stop
 	-docker image rm $(IMAGE)
-fclean : stop
-	-docker image rm $(IMAGE)
+fclean : clean
+
 stop :
 	-docker stop  $(CONTAINER)
 ps :
