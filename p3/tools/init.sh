@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+source $SSL_SH
+
 make-argocd-ssl-certificates
 k3d cluster create --config $CLUSTER_CONFIG_FILES
 until kubectl version 2> /dev/null | grep --no-messages 'Server Version: v'; do sleep 1; done
@@ -11,23 +13,23 @@ helm upgrade --install ingress-nginx ingress-nginx \
 echo "ingress-nginx installed!"
 kubectl create namespace dev
 kubectl create namespace argocd
-kubectl apply -f $MANIFESTS_DIR/iot-deployment-app.yaml --wait
-kubectl apply -f $MANIFESTS_DIR/iot-deployment-app-one.yaml --wait
-kubectl apply -f $MANIFESTS_DIR/iot-deployment-app-two.yaml --wait
-kubectl apply -f $MANIFESTS_DIR/iot-deployment-app-three.yaml --wait
-kubectl apply -f $MANIFESTS_DIR/iot-service-app.yaml --wait
-kubectl apply -f $MANIFESTS_DIR/iot-service-app-one.yaml --wait
-kubectl apply -f $MANIFESTS_DIR/iot-service-app-two.yaml --wait
-kubectl apply -f $MANIFESTS_DIR/iot-service-app-three.yaml --wait
+kubectl apply -f $MANIFESTS_DIR/app/iot-deployment-app.yaml --wait
+kubectl apply -f $MANIFESTS_DIR/app-one/iot-deployment-app-one.yaml --wait
+kubectl apply -f $MANIFESTS_DIR/app-two/iot-deployment-app-two.yaml --wait
+kubectl apply -f $MANIFESTS_DIR/app-three/iot-deployment-app-three.yaml --wait
+kubectl apply -f $MANIFESTS_DIR/app/iot-service-app.yaml --wait
+kubectl apply -f $MANIFESTS_DIR/app-one/iot-service-app-one.yaml --wait
+kubectl apply -f $MANIFESTS_DIR/app-two/iot-service-app-two.yaml --wait
+kubectl apply -f $MANIFESTS_DIR/app-three/iot-service-app-three.yaml --wait
 kubectl wait deployment ingress-nginx-controller -n ingress-nginx --for=condition=available --timeout=60s
-kubectl apply -f $MANIFESTS_DIR/iot-ingress.yaml --wait
+kubectl apply -f $MANIFESTS_DIR/ingress/iot-ingress.yaml --wait
 
 kubectl create -n argocd secret tls argocd-server-tls --cert=ssl/argocd.crt --key=ssl/argocd.key
 kubectl create -n argocd secret tls argocd-repo-server-tls --cert=ssl/argocd.crt --key=ssl/argocd.key
 kubectl create -n argocd secret tls argocd-dex-server-tls --cert=ssl/argocd.crt --key=ssl/argocd.key
 
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl apply -f $MANIFESTS_DIR/argocd-ingress.yaml --wait
+kubectl apply -f $MANIFESTS_DIR/ingress/argocd-ingress.yaml --wait
 
 kubectl wait deployment argocd-applicationset-controller -n argocd --for=condition=available --timeout=60s
 kubectl wait deployment argocd-server -n argocd --for=condition=available --timeout=60s
