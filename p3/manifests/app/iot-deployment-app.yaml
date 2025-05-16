@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: iot-app-c
-        image: theterror/iot-app:v1
+        image: theterror/iot-app:v2
         ports:
           - containerPort: 80
             name: http-port
